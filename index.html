@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cover Page Generator</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Times New Roman -->
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/times-new-roman');
+    body, * {
+      font-family: 'Times New Roman', serif !important;
+    }
+
+    /* PRINT ONLY COVER PAGE */
+    @media print {
+
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  #inputArea, .no-print {
+    display: none !important;
+  }
+
+  #coverPage {
+    display: block !important;
+  }
+
+  #coverContent {
+    display: block !important;
+    visibility: visible !important;
+    position: static !important;
+  }
+}
+
+  </style>
+
+</head>
+
+<body class="bg-gray-100 p-6">
+
+  <!-- Input Form -->
+  <div id="inputArea" class="max-w-4xl mx-auto bg-white p-6 shadow rounded">
+
+    <h1 class="text-2xl font-bold text-center mb-4 text-blue-950">IMB Polyetechnic Institute Cover Page Generator</h1>
+
+    <!-- DROPDOWNS -->
+    <div class="grid grid-cols-3 gap-4 mb-6">
+
+      <!-- Faculty -->
+      <div>
+        <label class="font-semibold">Faculty</label>
+        <select id="faculty" class="border p-2 w-full">
+          <option value="">Select Faculty</option>
+          <option value="Faculty of Science & Engineering">Faculty of Science & Engineering</option>
+        </select>
+      </div>
+
+      <!-- Department -->
+      <div>
+        <label class="font-semibold">Department</label>
+        <select id="department" class="border p-2 w-full">
+          <option value="">Select Department</option>
+          <option value="Department of CST">Department of CST</option>
+          <option value="Department of ET">Department of ET</option>
+          <option value="Department of CT">Department of CT</option>
+          <option value="Department of MT">Department of MT</option>
+        </select>
+      </div>
+
+      <!-- Document Type -->
+      <div>
+        <label class="font-semibold">Document Title</label>
+        <select id="docTitle" class="border p-2 w-full">
+          <option value="">Select Type</option>
+          <option value="LAB REPORT">LAB REPORT</option>
+          <option value="ASSIGNMENT">ASSIGNMENT</option>
+          <option value="PROJECT REPORT">PROJECT REPORT</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- Course Info -->
+    <div class="grid grid-cols-2 gap-4">
+        <input id="courseTitle" placeholder="Subject Name" class="border p-2">
+        <input id="courseCode" placeholder="Subject Code" class="border p-2">
+        <input id="labNo" placeholder="Experiment No." class="border p-2">
+        <input type="date" id="subDate" class="border p-2">
+        <input id="topic" placeholder="Topic of the Report" class="border p-2 col-span-2">
+    </div>
+
+    <br>
+
+    <!-- Teacher -->
+    <h2 class="font-semibold mt-4">Submitted To</h2>
+    <div class="grid grid-cols-3 gap-4">
+      <input id="teacherName" placeholder="Teacher Name" class="border p-2">
+      <input id="teacherDesig" placeholder="Designation" class="border p-2">
+      <input id="teacherDept" placeholder="Department" class="border p-2">
+    </div>
+
+    <br>
+
+    <!-- Student -->
+    <h2 class="font-semibold mt-4">Submitted By</h2>
+    <div class="grid grid-cols-4 gap-4">
+      <input id="studentName" placeholder="Student Name" class="border p-2 col-span-4">
+      <input id="studentId" placeholder="Roll No." class="border p-2">
+      <input id="regNo" placeholder="Reg. No" class="border p-2">
+      <input id="section" placeholder="Department" class="border p-2">
+      <input id="batch" placeholder="Semester" class="border p-2">
+      
+    </div>
+
+    <button onclick="generateCover()" class="w-full bg-red-600 text-white py-2 mt-4 rounded">
+       Preview Cover Page
+    </button>
+    <br>
+    <center><b>Developed by: Foyjul Islam Raju</b></center>
+  </div>
+
+  <!-- COVER PAGE -->
+  <div id="coverPage" class="hidden mt-6 flex justify-center">
+
+    <div id="coverContent" class="bg-white p-10 shadow max-w-3xl w-full">
+
+      <!-- Fixed Logo -->
+      <div class="text-center mb-4">
+        <img src="images.png"
+             class="w-32 mx-auto">
+      </div>
+
+      <h2 class="text-center font-bold text-2xl">IMB Polytechnic Institute</h2>
+      <h3 class="text-center font-bold text-xl">Anarkoli, Savar, Dhaka</h3>
+      <br>
+
+      <h2 id="p_faculty" class="text-center font-bold text-xl tracking-wide"></h2>
+      <h3 id="p_department" class="text-center font-bold text-lg mt-1"></h3>
+      <h2 id="p_docTitle" class="text-center font-bold text-2xl mt-3"></h2>
+
+      <!-- Middle Section -->
+      <div class="border-t border-gray-300 mt-6 pt-6 space-y-1">
+
+    <div class="grid grid-cols-[180px_20px_1fr] items-center">
+    <div>Subject Name</div>
+    <div class="text-center">:</div>
+    <div id="p_courseTitle"></div>
+    </div>
+        
+    <div class="grid grid-cols-[180px_20px_1fr] items-center">
+    <div>Subject Code</div>
+    <div class="text-center">:</div>
+    <div id="p_courseCode"></div>
+    </div>
+
+
+
+  <div class="grid grid-cols-[180px_20px_1fr] items-center">
+    <div>Experiment No</div>
+    <div class="text-center">:</div>
+    <div id="p_labNo"></div>
+  </div>
+
+  <div class="grid grid-cols-[180px_20px_1fr] items-center">
+    <div>Topic of the Report</div>
+    <div class="text-center">:</div>
+    <div id="p_topic"></div>
+  </div>
+
+  <div class="grid grid-cols-[180px_20px_1fr] items-center">
+    <div>Date of submission</div>
+    <div class="text-center">:</div>
+    <div id="p_subDate"></div>
+  </div>
+
+</div>
+
+
+      <hr style="margin: 20px 0; border: 0.5px solid #dfdede;">
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+      <!-- Footer -->
+      <div class="grid grid-cols-2 gap-6 mt-10">
+
+        <div class="border p-4 rounded">
+          <h3 class="font-bold mb-3 text-center pb-2 border-b">Submitted To</h3>
+          <p><b>Name:</b> <span id="p_teacherName"></span></p>
+          <p><b>Designation:</b> <span id="p_teacherDesig"></span></p>
+          <p><b>Department:</b> <span id="p_teacherDept"></span></p>
+        </div>
+
+        <div class="border p-4 rounded">
+          <h3 class="font-bold mb-3 text-center pb-2 border-b">Submitted By</h3>
+          <p><b>Name:</b> <span id="p_studentName"></span></p>
+          <p><b>Roll No:</b> <span id="p_studentId"></span></p>
+          <p><b>Reg. No:</b> <span id="p_regNo"></span></p>
+          <p><b>Department:</b> <span id="p_section"></span></p>
+          <p><b>Semester:</b> <span id="p_batch"></span></p>
+        </div>
+
+      </div>
+
+      <!-- Buttons (Hidden in PDF) -->
+      <div class="flex justify-center gap-4 mt-6 no-print">
+        <button onclick="goBack()" class="bg-gray-600 text-white px-4 py-2 rounded">Back</button>
+        <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded">Print</button>
+        <button onclick="downloadPDF()" class="bg-red-600 text-white px-4 py-2 rounded">Download PDF</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JS PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    function generateCover() {
+
+      // Set dropdown values first
+      document.getElementById("p_faculty").innerText = document.getElementById("faculty").value;
+      document.getElementById("p_department").innerText = document.getElementById("department").value;
+      document.getElementById("p_docTitle").innerText = document.getElementById("docTitle").value;
+
+      // Normal fields
+      let ids = [
+        "courseCode","courseTitle","labNo","topic","subDate",
+        "teacherName","teacherDesig","teacherDept",
+        "studentName","studentId","regNo","batch","section"
+      ];
+
+      ids.forEach(id => {
+        document.getElementById("p_" + id).innerText = document.getElementById(id).value;
+      });
+
+      // After data is set → show preview
+      document.getElementById("inputArea").classList.add("hidden");
+      document.getElementById("coverPage").classList.remove("hidden");
+
+      window.scrollTo(0, 0);
+    }
+
+    function goBack() {
+      document.getElementById("coverPage").classList.add("hidden");
+      document.getElementById("inputArea").classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
+
+    async function downloadPDF() {
+
+      const buttons = document.querySelectorAll(".no-print");
+      buttons.forEach(btn => btn.style.display = "none");
+
+      const cv = document.getElementById("coverContent");
+      const canvas = await html2canvas(cv, { scale: 3 });
+      const img = canvas.toDataURL("image/png");
+
+      const pdf = new jspdf.jsPDF("p", "mm", "a4");
+      const width = pdf.internal.pageSize.getWidth();
+      const height = canvas.height * width / canvas.width;
+
+      pdf.addImage(img, "PNG", 0, 0, width, height);
+      pdf.save("Cover_Page.pdf");
+
+      buttons.forEach(btn => btn.style.display = "flex");
+    }
+  </script>
+
+</body>
+</html>
