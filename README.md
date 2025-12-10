@@ -2,13 +2,13 @@
 A simple and user-friendly web application that allows students to instantly generate professional cover pages. The tool is designed for educational use and supports customizable inputs such as name, department, semester, subject details, and more.
 
 🚀 Features
-✔️ Clean and minimal UI
-✔️ Instant real-time preview
-✔️ Auto-formatted cover page layout
-✔️ Print or Save as PDF
-✔️ Supports Times New Roman cover page styling
-✔️ Fully responsive — works on mobile and desktop
-✔️ No backend required — completely client-side
+- Clean and minimal UI
+- Instant real-time preview
+- Auto-formatted cover page layout
+- Print or Save as PDF
+- Supports Times New Roman cover page styling
+- Fully responsive — works on mobile and desktop
+- No backend required — completely client-side
 
 🛠️ Technologies Used
 - HTML5
@@ -23,5 +23,5 @@ A simple and user-friendly web application that allows students to instantly gen
 - Click Print / Download PDF to save it
 
 🤝 Contributing
-Contributions are welcome!
-Feel free to submit issues or pull requests to improve the design and features.
+- Contributions are welcome!
+- Feel free to submit issues or pull requests to improve the design and features.
